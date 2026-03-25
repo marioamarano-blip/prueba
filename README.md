@@ -1,109 +1,116 @@
-🎯 PROMPT – Web de juegos de ingeniería y matemáticas (niños 6 años)
+# 👑 Princess Math Lab
 
-Actúa como un desarrollador frontend experto en educación infantil, UX/UI y gamificación.
+Una plataforma interactiva para niñas y niños de 6 años que combina **matemática, lógica e ingeniería básica** con una estética mágica inspirada en unicornios, planetas y ciencia.
 
-Quiero que construyas una aplicación web interactiva para niños de aproximadamente 6 años, enfocada en:
+---
 
-Juegos de lógica
-Matemáticas básicas (sumas, restas, patrones)
-Introducción a pensamiento de ingeniería (resolver problemas, construir, secuencias)
-🎨 ESTÉTICA Y EXPERIENCIA
+## 🎯 Objetivo
 
-La interfaz debe tener una estética:
+Crear una experiencia de aprendizaje donde los niños:
 
-Estilo princesa moderna (no estereotipada, sino inteligente y exploradora)
-Paleta de colores:
-Rosa suave
-Lila
-Dorado claro
-Blanco
-Tipografía amigable, redondeada y legible
-Elementos visuales:
-Castillos
-Estrellas
-Coronas
-Personaje guía (princesa ingeniera)
+- Aprendan jugando
+- Desarrollen pensamiento lógico
+- Exploren conceptos básicos de ingeniería
+- Se sientan motivados a través de una narrativa mágica
 
-El tono debe ser:
+---
 
-Dulce
-Motivador
-Acompañante (tipo “vamos juntas”, “lo estás haciendo genial”)
-👧 PERSONAJE GUÍA
+## 🌈 Concepto
 
-Crear un personaje principal:
+**Reino Científico Mágico**
 
-Una princesa ingeniera
-Que guía al niño en cada actividad
-Da feedback positivo
-Explica consignas con lenguaje simple
+Una princesa ingeniera guía a los niños a través de desafíos en un mundo lleno de:
 
-Ejemplo de tono:
+- 🦄 Unicornios
+- 🌙 Planetas
+- ✨ Estrellas
+- 🧪 Ciencia divertida
 
-“¡Vamos a resolver este desafío juntas!”
-“¡Qué bien lo hiciste! Sos muy inteligente”
-🧩 FUNCIONALIDADES PRINCIPALES
-1. Pantalla de inicio
-Botón “Jugar”
-Selección de juego
-Animaciones suaves
-2. Juegos (mínimo 3)
-🟣 Juego 1: Sumas simples
-Opciones múltiples
-Feedback inmediato
-🟣 Juego 2: Secuencias lógicas
-Ej: 2, 4, 6, __
-Arrastrar o seleccionar
-🟣 Juego 3: Construcción (pensamiento ingeniería)
-Armar estructuras simples (bloques)
-Resolver pequeños problemas (ej: “hacer un puente”)
-3. Sistema de recompensas
-Estrellas ⭐
-Mensajes positivos
-Sonidos suaves
-4. Interacción
-Botones grandes
-Navegación simple
-Compatible con tablet
-🧠 CRITERIOS PEDAGÓGICOS
-Lenguaje simple (nivel inicial)
-Aprendizaje basado en juego
-Refuerzo positivo constante
-Evitar frustración (intentos ilimitados)
-⚙️ TECNOLOGÍA
-HTML, CSS, JavaScript puro (sin frameworks complejos)
-Código modular y limpio
-Separar:
-UI
-lógica de juego
-datos
-🧱 ESTRUCTURA DEL CÓDIGO
+---
 
-Organizar en:
+## 🎮 Juegos disponibles
 
-index.html
-styles.css
-app.js
-carpeta /assets (imágenes, sonidos)
-✨ DETALLES IMPORTANTES
-Animaciones suaves (no excesivas)
-Sonidos opcionales (activables/desactivables)
-Código comentado
-Fácil de escalar con nuevos juegos
-🚀 OBJETIVO FINAL
+### ➕ Sumas
+- Resolución de sumas simples
+- Feedback inmediato
+- Reintento en caso de error
 
-Construir una web que:
+---
 
-Sea divertida
-Enseñe sin que el niño lo perciba como estudio
-Tenga identidad visual fuerte
-Sea fácilmente ampliable
-💡 BONUS (esto es clave para vos)
+## 🚧 Próximamente
 
-Si querés llevarlo a nivel producto (muy alineado con lo que venís haciendo):
+### ⚙️ Engranajes
+- Comprender cómo el movimiento se transmite
+- Relación entre ruedas dentadas
 
-Podés agregar después:
+### 🪝 Poleas
+- Entender cómo levantar objetos con menos esfuerzo
+- Conceptos básicos de fuerza
 
-Dashboard de progreso (padres)
-Niveles de dificultad
-Sistema tipo “misiones”
+### ⚡ Electricidad
+- Construir circuitos simples
+- Conectar:
+  - pila
+  - cables
+  - interruptor
+  - luz
+
+---
+
+## 🧠 Enfoque pedagógico
+
+- Aprendizaje basado en juego
+- Refuerzo positivo
+- Reintento sin penalización
+- Interacción táctil simple
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- HTML
+- CSS
+- JavaScript (vanilla)
+
+---
+
+## 🚀 Cómo usar
+
+1. Abrir la aplicación en el navegador
+2. Presionar "Jugar"
+3. Elegir un desafío
+4. Resolver el problema
+
+---
+
+## 🌐 Demo
+
+👉 https://marioamarano-blip.github.io/prueba/
+
+---
+
+## 📌 Estado del proyecto
+
+🟢 MVP funcional  
+🟡 En expansión (nuevos juegos en desarrollo)
+
+---
+
+## 🔮 Próximos pasos
+
+- Sistema de puntaje ⭐
+- Niveles de dificultad
+- Nuevos juegos interactivos
+- Mejora estética (unicornios, planetas, animaciones)
+
+---
+
+## 👨‍💻 Autor
+
+Mario Marano
+
+---
+
+## 💡 Visión
+
+Convertir esta aplicación en una plataforma accesible que acerque la **ingeniería y la ciencia a niños desde edades tempranas**, de forma divertida, intuitiva y motivadora.
