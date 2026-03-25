@@ -1,1 +1,43 @@
+/* ... (Se mantienen variables y estilos base previos) ... */
 
+.option-btn {
+    background-color: var(--lila);
+    color: white;
+    border: none;
+    width: 75px;
+    height: 75px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    border-radius: 20px;
+    cursor: pointer;
+    /* Mejora B: Suavizar animación */
+    transition: all 0.15s ease;
+    box-shadow: 0 5px 0 var(--lila-dark);
+}
+
+/* Mejora C: Hover consistente solo si no está deshabilitado */
+.option-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+}
+
+/* Mejora A: Claridad visual en botones bloqueados */
+.option-btn:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.option-btn.correct {
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border: 3px solid #28a745 !important;
+    box-shadow: none !important;
+}
+
+.option-btn.incorrect {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border: 3px solid #dc3545 !important;
+    box-shadow: none !important;
+}
+
+/* ... (Se mantiene el resto del CSS igual) ... */
