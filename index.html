@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Princess Math Lab 👑</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <div id="app-container">
+        <section id="home-screen" class="screen active">
+            <div class="card">
+                <div class="icon-header">✨ 👑 ✨</div>
+                <h1>Princess Math Lab</h1>
+                <p>¡Hola! Soy tu guía ingeniera. <br> ¿Lista para una aventura científica?</p>
+                <button id="btn-play" class="btn-primary">¡JUGAR!</button>
+            </div>
+        </section>
+
+        <section id="game-screen" class="screen">
+            <div class="card">
+                <div id="character-msg" class="bubble">
+                    ¡Vamos a resolver un desafío juntas! 🧪
+                </div>
+                
+                <div id="challenge-container">
+                    <div class="math-display">
+                        <span id="num1">?</span>
+                        <span>+</span>
+                        <span id="num2">?</span>
+                        <span>=</span>
+                        </div>
+
+                    <div id="options-container" class="options-container"></div>
+                </div>
+
+                <div id="feedback-msg" class="feedback"></div>
+                
+                <div class="controls">
+                    <button id="btn-back" class="btn-secondary">Volver</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
