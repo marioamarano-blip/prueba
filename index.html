@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Princess Math Lab 👑</title>
     <link rel="stylesheet" href="./styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="app-container">
+    <main id="app-container">
         <section id="home-screen" class="screen active">
             <div class="card">
                 <div class="icon-header">✨ 👑 ✨</div>
                 <h1>Princess Math Lab</h1>
-                <p>¡Hola! Soy tu guía ingeniera. <br> ¿Lista para una aventura científica?</p>
+                <p>¡Hola! Soy tu guía ingeniera. <br> <strong>¿Lista para una aventura científica?</strong></p>
                 <button id="btn-play" class="btn-primary">¡JUGAR!</button>
             </div>
         </section>
@@ -31,19 +31,21 @@
                         <span>+</span>
                         <span id="num2">?</span>
                         <span>=</span>
-                        </div>
+                        <span id="answer-slot">?</span>
+                    </div>
 
-                    <div id="options-container" class="options-container"></div>
+                    <div id="options-container" class="options-container">
+                        </div>
                 </div>
 
                 <div id="feedback-msg" class="feedback"></div>
                 
                 <div class="controls">
-                    <button id="btn-back" class="btn-secondary">Volver</button>
+                    <button id="btn-back" class="btn-secondary">Volver al Inicio</button>
                 </div>
             </div>
         </section>
-    </div>
+    </main>
 
     <script type="module" src="./app.js"></script>
 </body>
