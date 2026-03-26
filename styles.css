@@ -376,6 +376,12 @@ body {
     font-size: 0.72rem;
     color: var(--texto-suave);
     font-weight: 600;
+    text-transform: uppercase;
+}
+.game-desc {
+    font-size: 0.72rem;
+    color: var(--texto-suave);
+    font-weight: 600;
 }
 
 .level-badge {
