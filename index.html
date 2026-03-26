@@ -140,13 +140,23 @@
 
                 <div id="electricidad-character-msg" class="bubble">¡Conecta el circuito para encender la luz! 💡</div>
 
-                <div id="circuit-container">
-                    <canvas id="electricidad-canvas" width="320" height="260"></canvas>
-                </div>
+<div class="electric-game">
 
-                <div id="electricidad-question" class="question-text"></div>
-                <div id="electricidad-controls" class="circuit-controls"></div>
-                <div id="electricidad-feedback" class="feedback"></div>
+    <div class="components">
+        <div class="item battery" draggable="true" data-type="battery">🔋</div>
+        <div class="item switch" draggable="true" data-type="switch">🔘</div>
+        <div class="item motor" draggable="true" data-type="motor">🌀</div>
+    </div>
+
+    <div class="board" id="board">
+        <div class="dropzone" data-slot="battery"></div>
+        <div class="dropzone" data-slot="switch"></div>
+        <div class="dropzone" data-slot="motor"></div>
+    </div>
+
+    <div id="electricidad-feedback" class="feedback"></div>
+
+</div>
             </div>
         </section>
 
