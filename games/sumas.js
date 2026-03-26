@@ -54,7 +54,7 @@ const SumasGame = {
     },
 
     handleSelection(event, selectedValue) {
-        if (this.parent.isLocked) return;
+        if (this.parent.isLocked || !this.parent) return;
 
         const isCorrect = selectedValue === this.currentAnswer;
         const clickedBtn = event.currentTarget;
