@@ -1,61 +1,56 @@
 const ElectricidadGame = {
     parent: null,
-    connections: {},
+    selectedNode: null,
 
     start(app) {
         this.parent = app;
-        this.connections = {};
+        this.selectedNode = null;
 
-        this.initDragAndDrop();
-
-        this.parent.updateCharacterMessage("JUANA, ARMEMOS EL CIRCUITO ⚡");
-    },
-
-    initDragAndDrop() {
-        const items = document.querySelectorAll('.item');
-        const zones = document.querySelectorAll('.dropzone');
-
-        items.forEach(item => {
-            item.addEventListener('dragstart', e => {
-                e.dataTransfer.setData('type', item.dataset.type);
-            });
+        document.querySelectorAll('.node').forEach(node => {
+            node.addEventListener('click', () => this.handleClick(node));
         });
 
-        zones.forEach(zone => {
-            zone.addEventListener('dragover', e => e.preventDefault());
-
-            zone.addEventListener('drop', e => {
-                e.preventDefault();
-                const type = e.dataTransfer.getData('type');
-
-                zone.textContent =
-                    type === "battery" ? "🔋" :
-                    type === "switch" ? "🔘" :
-                    "🌀";
-
-                this.connections[zone.dataset.slot] = type;
-
-                this.checkCircuit();
-            });
-        });
+        this.parent.updateCharacterMessage("JUANA, UNÍ LOS PUNTOS ⚡");
     },
 
-    checkCircuit() {
-        if (
-            this.connections.battery === "battery" &&
-            this.connections.switch === "switch" &&
-            this.connections.motor === "motor"
-        ) {
-            this.activateCircuit();
+    handleClick(node) {
+        if (!this.selectedNode) {
+            this.selectedNode = node;
+            node.style.background = "#fde68a";
+            return;
         }
+
+        this.drawCable(this.selectedNode, node);
+
+        this.selectedNode.style.background = "white";
+        this.selectedNode = null;
     },
 
-    activateCircuit() {
-        const motor = document.querySelector('.dropzone[data-slot="motor"]');
-        motor.classList.add('motor');
+    drawCable(n1, n2) {
+        const svg = document.getElementById("circuit-svg");
 
-        this.parent.updateCharacterMessage("¡JUANA! ¡FUNCIONA! ⚡✨");
-        this.parent.addStar("electricidad");
+        const r1 = n1.getBoundingClientRect();
+        const r2 = n2.getBoundingClientRect();
+        const parent = svg.getBoundingClientRect();
+
+        const x1 = r1.left - parent.left + 22;
+        const y1 = r1.top - parent.top + 22;
+        const x2 = r2.left - parent.left + 22;
+        const y2 = r2.top - parent.top + 22;
+
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+
+        // 🔴 color según polo
+        const color = n1.dataset.pole === "plus" ? "red" : "black";
+
+        line.setAttribute("x1", x1);
+        line.setAttribute("y1", y1);
+        line.setAttribute("x2", x2);
+        line.setAttribute("y2", y2);
+        line.setAttribute("stroke", color);
+        line.setAttribute("stroke-width", "4");
+
+        svg.appendChild(line);
     }
 };
 
