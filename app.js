@@ -72,15 +72,18 @@ const App = {
         }
     },
 
-    updateCharacterMessage(gamePrefix, msg) {
-        const el = document.getElementById(`${gamePrefix}-character-msg`);
-        if (!el) return;
-        el.style.opacity = 0;
-        setTimeout(() => {
-            el.textContent = msg;
-            el.style.opacity = 1;
-        }, 180);
-    },
+updateCharacterMessage(msg) {
+    this.elements.characterMsg.style.opacity = 0;
+
+    setTimeout(() => {
+        this.elements.characterMsg.textContent = msg;
+        this.elements.characterMsg.style.opacity = 1;
+
+        // 🔊 VOZ
+        this.speak("JUANA, " + msg);
+
+    }, 200);
+},
 
     addStar(gamePrefix) {
         this.totalStars++;
