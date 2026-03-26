@@ -1,11 +1,18 @@
+/**
+ * Módulo: SumasGame
+ * Encargado de la lógica matemática y feedback del laboratorio.
+ */
 const SumasGame = {
     parent: null,
     currentAnswer: null,
+    
+    // Mensajes aleatorios para mantener el interés
     successMessages: [
         "¡Increíble! ✨",
         "¡Excelente! 👑",
         "¡Muy bien! 🧪",
-        "¡Sos una genia! 🌟"
+        "¡Sos una genia! 🌟",
+        "¡Misión cumplida! 🚀"
     ],
 
     start(appInstance) {
@@ -15,21 +22,29 @@ const SumasGame = {
     },
 
     startNewChallenge() {
+        // 1. Resetear estado visual y bloqueos
         this.parent.isLocked = false;
         this.parent.elements.optionsContainer.innerHTML = "";
-        this.parent.elements.feedback.textContent = "";
-        this.parent.elements.feedback.className = "feedback";
-        this.currentAnswer = null;
+        
+        // Limpiamos feedback (asumiendo que existen en el DOM)
+        const feedback = document.getElementById('feedback-msg');
+        if (feedback) {
+            feedback.textContent = "";
+            feedback.className = "feedback";
+        }
 
-        const n1 = Math.floor(Math.random() * 6) + 1;
-        const n2 = Math.floor(Math.random() * 4) + 1;
+        // 2. Generar lógica matemática (Nivel 6 años: sumas hasta 10)
+        const n1 = Math.floor(Math.random() * 6) + 1; // 1 a 6
+        const n2 = Math.floor(Math.random() * 4) + 1; // 1 a 4
         this.currentAnswer = n1 + n2;
 
-        this.parent.elements.num1Display.textContent = n1;
-        this.parent.elements.num2Display.textContent = n2;
+        // Actualizar visualización
+        document.getElementById('num1').textContent = n1;
+        document.getElementById('num2').textContent = n2;
 
-        this.parent.updateCharacterMessage("¿Cuánto da esta suma? ¡Tú puedes!");
+        this.parent.updateCharacterMessage("¿Cuánto da esta suma? ¡Tú puedes, ingeniera!");
 
+        // 3. Preparar opciones
         const options = this.generateOptions(this.currentAnswer);
         this.renderOptions(options);
     },
@@ -37,10 +52,17 @@ const SumasGame = {
     generateOptions(correct) {
         let options = new Set();
         options.add(correct);
+
         while (options.size < 3) {
-            let distractor = correct + (Math.floor(Math.random() * 5) - 2);
-            if (distractor > 0 && distractor !== correct) options.add(distractor);
+            // Genera distractores cercanos pero no negativos
+            let offset = Math.floor(Math.random() * 3) + 1;
+            let distractor = Math.random() > 0.5 ? correct + offset : correct - offset;
+            
+            if (distractor > 0 && distractor !== correct) {
+                options.add(distractor);
+            }
         }
+        // Mezclar array
         return Array.from(options).sort(() => Math.random() - 0.5);
     },
 
@@ -49,46 +71,57 @@ const SumasGame = {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.textContent = value;
-            btn.addEventListener('click', (e) => this.handleSelection(e, value));
+            
+            // Usamos una función anónima para pasar el valor
+            btn.onclick = (e) => this.handleSelection(e, value);
+            
             this.parent.elements.optionsContainer.appendChild(btn);
         });
     },
 
     handleSelection(event, selectedValue) {
-        if (this.parent.isLocked || !this.parent) return;
+        if (this.parent.isLocked) return;
 
         const isCorrect = selectedValue === this.currentAnswer;
         const clickedBtn = event.currentTarget;
+        const feedback = document.getElementById('feedback-msg');
 
         if (isCorrect) {
-            this.parent.isLocked = true;
+            this.parent.isLocked = true; // Bloquea clics extra
             clickedBtn.classList.add('correct');
             
+            // Deshabilitar el resto
             const allButtons = this.parent.elements.optionsContainer.querySelectorAll('.option-btn');
             allButtons.forEach(btn => btn.disabled = true);
 
-            this.checkAnswer(true);
+            this.showFeedback(true, feedback);
         } else {
-            clickedBtn.classList.add('inif (!clickedBtn.classList.contains('incorrect')) {
-    clickedBtn.classList.add('incorrect');
-}correct');
+            // Si es incorrecto, marcamos el botón pero dejamos que siga intentando
+            clickedBtn.classList.add('incorrect');
             clickedBtn.disabled = true;
-            this.checkAnswer(false);
+            this.showFeedback(false, feedback);
         }
     },
 
-    checkAnswer(isCorrect) {
+    showFeedback(isCorrect, feedbackElement) {
         if (isCorrect) {
-            const randomMsg = this.successMessages[Math.floor(Math.random() * this.successMessages.length)];
-            this.parent.elements.feedback.textContent = randomMsg;
-            this.parent.elements.feedback.className = "feedback success";
-            this.parent.updateCharacterMessage("¡Excelente! Eres una gran científica.");
+            const msg = this.successMessages[Math.floor(Math.random() * this.successMessages.length)];
             
-            setTimeout(() => this.startNewChallenge(), 1800);
+            if (feedbackElement) {
+                feedbackElement.textContent = msg;
+                feedbackElement.className = "feedback success";
+            }
+            
+            this.parent.updateCharacterMessage("¡Fabuloso! El cálculo es perfecto. ✨");
+            
+            // Tiempo para celebrar antes del siguiente desafío
+            setTimeout(() => this.startNewChallenge(), 2000);
         } else {
-            this.parent.elements.feedback.textContent = "¡Casi! Inténtalo de nuevo 💡";
-            this.parent.elements.feedback.className = "feedback error";
-            this.parent.updateCharacterMessage("¡No te preocupes! Sigue probando.");
+            if (feedbackElement) {
+                feedbackElement.textContent = "¡Casi! Inténtalo otra vez 💡";
+                feedbackElement.className = "feedback error";
+            }
+            this.parent.updateCharacterMessage("No pasa nada, ¡el error es parte de la ciencia!");
         }
     }
 };
