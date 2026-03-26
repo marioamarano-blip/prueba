@@ -17,6 +17,7 @@ const App = {
 
     init() {
         this.bindEvents();
+        if (!this.elements.btnPlay) return;
     },
 
     bindEvents() {
