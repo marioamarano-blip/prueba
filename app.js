@@ -113,3 +113,12 @@ const App = {
 
 document.addEventListener('DOMContentLoaded', () => App.init());
 export default App;
+speak(text) {
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = "es-AR";
+    msg.rate = 0.9;
+    msg.pitch = 1.2;
+
+    speechSynthesis.cancel();
+    speechSynthesis.speak(msg);
+}
