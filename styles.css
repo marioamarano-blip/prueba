@@ -38,6 +38,7 @@ body {
     padding: 16px;
     color: var(--texto);
     overflow-x: hidden;
+    text-transform: uppercase;
 }
 
 /* ========== DECORATIONS ========== */
