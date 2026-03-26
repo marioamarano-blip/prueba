@@ -68,7 +68,9 @@ const SumasGame = {
 
             this.checkAnswer(true);
         } else {
-            clickedBtn.classList.add('incorrect');
+            clickedBtn.classList.add('inif (!clickedBtn.classList.contains('incorrect')) {
+    clickedBtn.classList.add('incorrect');
+}correct');
             clickedBtn.disabled = true;
             this.checkAnswer(false);
         }
