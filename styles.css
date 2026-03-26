@@ -368,7 +368,10 @@ body {
     margin-bottom: 0.2rem;
      text-transform: uppercase;
 }
-
+.game-card,
+.game-card * {
+    text-transform: uppercase;
+}
 .game-desc {
     font-size: 0.72rem;
     color: var(--texto-suave);
