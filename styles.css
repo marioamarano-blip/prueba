@@ -1,34 +1,212 @@
 :root {
     --rosa: #ffd6e0;
     --lila: #e0bbff;
-    --lila-dark: #b28dff;
+    --lila-dark: #9d6cd2; /* Un poco más profundo para contraste */
     --celeste: #cde7ff;
     --amarillo: #fff3b0;
+    --amarillo-dark: #f0e18a;
     --blanco: #ffffff;
-    --texto: #5a4a6b;
+    --texto: #4a3f5a; /* Un tono más oscuro para mejor lectura */
+    --shadow: 0 12px 30px rgba(0,0,0,0.08);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: 'Quicksand', sans-serif;
     background: linear-gradient(135deg, var(--rosa), var(--lila), var(--celeste));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite; /* Fondo animado sutil */
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--texto);
+    padding: 20px;
 }
 
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#app-container {
+    width: 100%;
+    max-width: 450px;
+    perspective: 1000px;
+}
+
+/* Pantallas con efecto de entrada */
+.screen {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+}
+
+.screen.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tarjeta con efecto "glassmorphism" suave */
 .card {
-    background: white;
-    padding: 2rem;
-    border-radius: 25px;
-    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem 2rem;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--blanco);
+}
+
+/* Texto */
+h1 {
+    margin-bottom: 1rem;
+    color: #7d4ba7;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Iconos con animación */
+.icon-header {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    display: inline-block;
+    filter: drop-shadow(0 4px 5px rgba(0,0,0,0.1));
+}
+
+/* Botones con efecto de presión */
+.btn-primary {
+    background: var(--amarillo);
+    color: #7a6b2d;
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 var(--amarillo-dark);
+    transition: var(--transition);
+    position: relative;
+    top: 0;
+}
+
+.btn-primary:hover {
+    top: -2px;
+    box-shadow: 0 8px 0 var(--amarillo-dark);
+}
+
+.btn-primary:active {
+    top: 4px;
+    box-shadow: 0 2px 0 var(--amarillo-dark);
+}
+
+.btn-secondary {
+    margin-top: 1.5rem;
+    border: 2px solid var(--lila);
+    background: transparent;
+    color: var(--lila-dark);
+    padding: 0.6rem 1.8rem;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: var(--lila);
+    color: white;
+}
+
+/* Burbuja de mensaje */
+.bubble {
+    background: #fdfbff;
+    padding: 20px;
+    border-radius: 24px;
+    margin-bottom: 25px;
+    border: 1px dashed var(--lila);
+    font-style: italic;
+}
+
+/* Operación Matemática */
+.math-display {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 2rem 0;
+    color: var(--lila-dark);
+    text-shadow: 2px 2px 0px white, 4px 4px 0px rgba(0,0,0,0.05);
+}
+
+/* Opciones de respuesta */
+.options-container {
+    display: grid; /* Grid suele ser más limpio para botones de igual tamaño */
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 15px;
+    margin: 10px 0;
 }
 
 .option-btn {
     background-color: var(--lila);
     color: white;
     border: none;
-    width: 70px;
-    height: 70px;
-    border-radius: 20px;
+    aspect-ratio: 1/1; /* Mantiene el botón perfectamente cuadrado */
+    font-size: 2rem;
+    font-weight: 700;
+    border-radius: 22px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 6px 0 var(--lila-dark);
+}
+
+.option-btn:hover:not(:disabled) {
+    transform: translateY(-4px);
+    background-color: #d199ff;
+    box-shadow: 0 10px 0 var(--lila-dark);
+}
+
+.option-btn:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--lila-dark);
+}
+
+/* Estados de respuesta */
+.option-btn.correct {
+    background-color: #2ecc71 !important;
+    color: white !important;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+    border: none;
+}
+
+.option-btn.incorrect {
+    background-color: #e74c3c !important;
+    color: white !important;
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.4);
+    border: none;
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Feedback visual */
+.feedback {
+    margin-top: 25px;
+    font-size: 1.2rem;
+    min-height: 1.5rem;
 }
