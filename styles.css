@@ -176,6 +176,7 @@ body {
     font-size: 2.4rem;
     margin-bottom: 0.4rem;
     display: block;
+     text-transform: uppercase;
 }
 
 .game-name {
@@ -184,6 +185,7 @@ body {
     font-weight: 800;
     color: var(--texto);
     margin-bottom: 0.2rem;
+     text-transform: uppercase;
 }
 
 .game-desc {
