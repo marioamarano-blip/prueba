@@ -19,6 +19,7 @@ const SumasGame = {
         this.parent.elements.optionsContainer.innerHTML = "";
         this.parent.elements.feedback.textContent = "";
         this.parent.elements.feedback.className = "feedback";
+        this.currentAnswer = null;
 
         const n1 = Math.floor(Math.random() * 6) + 1;
         const n2 = Math.floor(Math.random() * 4) + 1;
