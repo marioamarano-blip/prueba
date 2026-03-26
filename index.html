@@ -144,27 +144,27 @@
             ¡JUANA! CONECTA EL CIRCUITO PARA ENCENDER EL MOTOR ⚡
         </div>
 
-        <!-- ================= JUEGO ================= -->
-        <div class="electric-game">
+    <div class="electric-game">
 
-            <!-- ELEMENTOS ARRASTRABLES -->
-            <div class="components">
-                <div class="item" draggable="true" data-type="battery">🔋</div>
-                <div class="item" draggable="true" data-type="switch">🔘</div>
-                <div class="item" draggable="true" data-type="motor">🌀</div>
-            </div>
+    <svg id="circuit-svg"></svg>
 
-            <!-- ZONAS DE CONEXIÓN -->
-            <div class="board">
-                <div class="dropzone" data-slot="battery"></div>
-                <div class="dropzone" data-slot="switch"></div>
-                <div class="dropzone" data-slot="motor"></div>
-            </div>
+    <!-- BATERÍA -->
+    <div class="node" data-type="battery" data-pole="plus" data-id="bat+">+</div>
+    <div class="node" data-type="battery" data-pole="minus" data-id="bat-">-</div>
 
-            <!-- FEEDBACK -->
-            <div id="electricidad-feedback" class="feedback"></div>
+    <!-- LUZ -->
+    <div class="node" data-type="light" data-pole="a" data-id="light-a">💡</div>
+    <div class="node" data-type="light" data-pole="b" data-id="light-b">💡</div>
 
-        </div>
+    <!-- MOTOR -->
+    <div class="node" data-type="motor" data-pole="a" data-id="motor-a">🌀</div>
+    <div class="node" data-type="motor" data-pole="b" data-id="motor-b">🌀</div>
+
+    <!-- SWITCH -->
+    <div class="node" data-type="switch" data-pole="a" data-id="sw-a">🔘</div>
+    <div class="node" data-type="switch" data-pole="b" data-id="sw-b">🔘</div>
+
+</div>
 
     </div>
 </section>
