@@ -1,48 +1,113 @@
-import SumasGame from './games/sumas.js';
+import SumasGame     from './games/sumas.js';
+import PoleasGame    from './games/poleas.js';
+import EngranajesGame from './games/engranajes.js';
+import ElectricidadGame from './games/electricidad.js';
+
+const GAME_MAP = {
+    sumas:        { module: SumasGame,        screen: 'sumas-screen' },
+    poleas:       { module: PoleasGame,       screen: 'poleas-screen' },
+    engranajes:   { module: EngranajesGame,   screen: 'engranajes-screen' },
+    electricidad: { module: ElectricidadGame, screen: 'electricidad-screen' },
+};
 
 const App = {
     isLocked: false,
-    elements: {
-        screens: document.querySelectorAll('.screen'),
-        homeScreen: document.getElementById('home-screen'),
-        gameScreen: document.getElementById('game-screen'),
-        btnPlay: document.getElementById('btn-play'),
-        btnBack: document.getElementById('btn-back'),
-        characterMsg: document.getElementById('character-msg'),
-        optionsContainer: document.getElementById('options-container')
-    },
+    currentGame: null,
+    totalStars: 0,
 
     init() {
         this.bindEvents();
+        this.loadStars();
     },
 
     bindEvents() {
-        this.elements.btnPlay.onclick = () => this.goTo('game');
-        this.elements.btnBack.onclick = () => this.goTo('home');
+        // Game card buttons on home screen
+        document.querySelectorAll('.game-card').forEach(btn => {
+            btn.addEventListener('click', () => this.launchGame(btn.dataset.game));
+        });
+
+        // All back buttons
+        document.querySelectorAll('[data-back]').forEach(btn => {
+            btn.addEventListener('click', () => this.goHome());
+        });
     },
 
-    goTo(screenName) {
+    launchGame(gameName) {
+        if (this.isLocked) return;
+        const entry = GAME_MAP[gameName];
+        if (!entry) return;
+
+        this.isLocked = true;
+        this.currentGame = entry.module;
+
+        this.showScreen(entry.screen);
+        entry.module.start(this);
+
+        setTimeout(() => { this.isLocked = false; }, 400);
+    },
+
+    goHome() {
         if (this.isLocked) return;
         this.isLocked = true;
 
-        this.elements.screens.forEach(s => s.classList.remove('active'));
-
-        if (screenName === 'game') {
-            this.elements.gameScreen.classList.add('active');
-            SumasGame.start(this);
-        } else {
-            this.elements.homeScreen.classList.add('active');
+        if (this.currentGame && typeof this.currentGame.stop === 'function') {
+            this.currentGame.stop();
         }
+        this.currentGame = null;
 
-        setTimeout(() => { this.isLocked = false; }, 500);
+        this.showScreen('home-screen');
+        setTimeout(() => { this.isLocked = false; }, 400);
     },
 
-    updateCharacterMessage(msg) {
-        this.elements.characterMsg.style.opacity = 0;
+    showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => {
+            s.classList.remove('active');
+        });
+        const target = document.getElementById(screenId);
+        if (target) {
+            // small delay to allow CSS transition
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => target.classList.add('active'));
+            });
+        }
+    },
+
+    updateCharacterMessage(gamePrefix, msg) {
+        const el = document.getElementById(`${gamePrefix}-character-msg`);
+        if (!el) return;
+        el.style.opacity = 0;
         setTimeout(() => {
-            this.elements.characterMsg.textContent = msg;
-            this.elements.characterMsg.style.opacity = 1;
-        }, 200);
+            el.textContent = msg;
+            el.style.opacity = 1;
+        }, 180);
+    },
+
+    addStar(gamePrefix) {
+        this.totalStars++;
+        this.saveStars();
+
+        // update game counter
+        const gameStarEl = document.getElementById(`${gamePrefix}-stars`);
+        if (gameStarEl) {
+            gameStarEl.textContent = parseInt(gameStarEl.textContent || '0') + 1;
+        }
+
+        // update home total
+        const totalEl = document.getElementById('total-stars');
+        if (totalEl) totalEl.textContent = this.totalStars;
+    },
+
+    saveStars() {
+        try { localStorage.setItem('princess_stars', this.totalStars); } catch(e) {}
+    },
+
+    loadStars() {
+        try {
+            const saved = parseInt(localStorage.getItem('princess_stars') || '0');
+            this.totalStars = saved;
+            const totalEl = document.getElementById('total-stars');
+            if (totalEl) totalEl.textContent = this.totalStars;
+        } catch(e) {}
     }
 };
 
