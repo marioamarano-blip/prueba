@@ -21,11 +21,10 @@
 
     <main id="app-container">
 
-        <!-- ======================== HOME SCREEN ======================== -->
         <section id="home-screen" class="screen active">
             <div class="home-card">
                 <div class="princess-avatar">👑</div>
-                <h1 class="title-main">El laboratorio de Juanita</span></h1>
+                <h1 class="title-main">El laboratorio de Juanita</h1>
                 <p class="subtitle">¡Hola! Soy tu guía ingeniera.<br><strong>¿Lista para una aventura científica?</strong></p>
 
                 <div class="games-grid">
@@ -59,7 +58,6 @@
             </div>
         </section>
 
-        <!-- ======================== SUMAS SCREEN ======================== -->
         <section id="sumas-screen" class="screen">
             <div class="card">
                 <div class="card-header">
@@ -87,7 +85,6 @@
             </div>
         </section>
 
-        <!-- ======================== POLEAS SCREEN ======================== -->
         <section id="poleas-screen" class="screen">
             <div class="card">
                 <div class="card-header">
@@ -95,20 +92,16 @@
                     <h2 class="game-title">🪝 Poleas</h2>
                     <div class="mini-stars">⭐ <span id="poleas-stars">0</span></div>
                 </div>
-
                 <div id="poleas-character-msg" class="bubble">¡Elige cuántas poleas necesitas! 💪</div>
-
                 <div id="poleas-canvas-container">
                     <canvas id="poleas-canvas" width="320" height="280"></canvas>
                 </div>
-
                 <div id="poleas-question" class="question-text"></div>
                 <div id="poleas-options" class="options-container options-row"></div>
                 <div id="poleas-feedback" class="feedback"></div>
             </div>
         </section>
 
-        <!-- ======================== ENGRANAJES SCREEN ======================== -->
         <section id="engranajes-screen" class="screen">
             <div class="card">
                 <div class="card-header">
@@ -116,65 +109,41 @@
                     <h2 class="game-title">⚙️ Engranajes</h2>
                     <div class="mini-stars">⭐ <span id="engranajes-stars">0</span></div>
                 </div>
-
                 <div id="engranajes-character-msg" class="bubble">¡Mira cómo giran los engranajes! ⚙️</div>
-
                 <div id="engranajes-canvas-container">
                     <canvas id="engranajes-canvas" width="320" height="240"></canvas>
                 </div>
-
                 <div id="engranajes-question" class="question-text"></div>
                 <div id="engranajes-options" class="options-container options-row"></div>
                 <div id="engranajes-feedback" class="feedback"></div>
             </div>
         </section>
 
-<!-- ======================== ELECTRICIDAD SCREEN ======================== -->
-<section id="electricidad-screen" class="screen">
-    <div class="card">
-
-        <div class="card-header">
-            <button class="btn-back" data-back>← INICIO</button>
-            <h2 class="game-title">⚡ ELECTRICIDAD</h2>
-            <div class="mini-stars">⭐ <span id="electricidad-stars">0</span></div>
-        </div>
-
-        <!-- 👇 IMPORTANTE: ID UNIFICADO PARA VOZ -->
-        <div id="character-msg" class="bubble">
-            ¡JUANA! CONECTA EL CIRCUITO PARA ENCENDER EL MOTOR ⚡
-        </div>
-
-    <div class="electric-game">
-
-    <svg id="circuit-svg"></svg>
-
-    <!-- BATERÍA -->
-    <div class="node" data-type="battery" data-pole="plus" data-id="bat+">+</div>
-    <div class="node" data-type="battery" data-pole="minus" data-id="bat-">-</div>
-
-    <!-- LUZ -->
-    <div class="node" data-type="light" data-pole="a" data-id="light-a">💡</div>
-    <div class="node" data-type="light" data-pole="b" data-id="light-b">💡</div>
-
-    <!-- MOTOR -->
-    <div class="node" data-type="motor" data-pole="a" data-id="motor-a">🌀</div>
-    <div class="node" data-type="motor" data-pole="b" data-id="motor-b">🌀</div>
-
-    <!-- SWITCH -->
-    <div class="node" data-type="switch" data-pole="a" data-id="sw-a">🔘</div>
-    <div class="node" data-type="switch" data-pole="b" data-id="sw-b">🔘</div>
-
-</div>
-
-    </div>
-</section>
-
-</div>
+        <section id="electricidad-screen" class="screen">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn-back" data-back>← INICIO</button>
+                    <h2 class="game-title">⚡ ELECTRICIDAD</h2>
+                    <div class="mini-stars">⭐ <span id="electricidad-stars">0</span></div>
+                </div>
+                <div id="character-msg" class="bubble">¡JUANA! CONECTA EL CIRCUITO ⚡</div>
+                <div class="electric-game">
+                    <svg id="circuit-svg"></svg>
+                    <div class="node" data-type="battery" data-pole="plus" data-id="bat+">+</div>
+                    <div class="node" data-type="battery" data-pole="minus" data-id="bat-">-</div>
+                    <div class="node" data-type="light" data-pole="a" data-id="light-a">💡</div>
+                    <div class="node" data-type="light" data-pole="b" data-id="light-b">💡</div>
+                    <div class="node" data-type="motor" data-pole="a" data-id="motor-a">🌀</div>
+                    <div class="node" data-type="motor" data-pole="b" data-id="motor-b">🌀</div>
+                    <div class="node" data-type="switch" data-pole="a" data-id="sw-a">🔘</div>
+                    <div class="node" data-type="switch" data-pole="b" data-id="sw-b">🔘</div>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <script type="module" src="./app.js"></script>
+    <script src="./rumiAssistant.js"></script>
+    <script src="./app.js"></script>
 </body>
 </html>
