@@ -1,13 +1,9 @@
-import SumasGame from './games/sumas.js';
-import PoleasGame from './games/poleas.js';
-import EngranajesGame from './games/engranajes.js';
-import ElectricidadGame from './games/electricidad.js';
-
+// Definimos el mapa de juegos (ahora asumiendo que los objetos de juego son globales)
 const GAME_MAP = {
-    sumas:        { module: SumasGame,        screen: 'sumas-screen' },
-    poleas:       { module: PoleasGame,       screen: 'poleas-screen' },
-    engranajes:   { module: EngranajesGame,   screen: 'engranajes-screen' },
-    electricidad: { module: ElectricidadGame, screen: 'electricidad-screen' },
+    sumas:        { module: typeof SumasGame !== 'undefined' ? SumasGame : null,        screen: 'sumas-screen' },
+    poleas:       { module: typeof PoleasGame !== 'undefined' ? PoleasGame : null,       screen: 'poleas-screen' },
+    engranajes:   { module: typeof EngranajesGame !== 'undefined' ? EngranajesGame : null,   screen: 'engranajes-screen' },
+    electricidad: { module: typeof ElectricidadGame !== 'undefined' ? ElectricidadGame : null, screen: 'electricidad-screen' },
 };
 
 const App = {
@@ -15,20 +11,26 @@ const App = {
     currentGame: null,
     totalStars: 0,
     elements: {},
+    rumi: null, // Guardaremos a la asistente aquí
 
     // ================= INIT =================
     init() {
+        // 1. Inicializamos a Rumi primero
+        this.rumi = new RumiAssistant();
+        
         this.cacheElements();
         this.bindEvents();
         this.loadStars();
-    },
+
+        console.log("Laboratorio de Juanita listo con Rumi Assistant");
+    }
 
     // ================= CACHE ELEMENTS =================
     cacheElements() {
         this.elements = {
             characterMsg: document.getElementById('character-msg')
         };
-    },
+    }
 
     // ================= EVENTS =================
     bindEvents() {
@@ -42,22 +44,25 @@ const App = {
             btn.addEventListener('click', () => this.goHome());
         });
 
-        // Botón repetir (si existe)
+        // Botón repetir
         const repeatBtn = document.getElementById('btn-repeat');
         if (repeatBtn) {
             repeatBtn.addEventListener('click', () => {
-                const text = this.elements.characterMsg?.textContent || "";
-                this.speak("JUANA, " + text);
+                const text = this.elements.characterMsg?.textContent || "¡Vamos a jugar!";
+                this.speak(text);
             });
         }
-    },
+    }
 
     // ================= NAVEGACIÓN =================
     launchGame(gameName) {
         if (this.isLocked) return;
 
         const entry = GAME_MAP[gameName];
-        if (!entry) return;
+        if (!entry || !entry.module) {
+            console.error("Juego no encontrado o módulo no cargado:", gameName);
+            return;
+        }
 
         this.isLocked = true;
         this.currentGame = entry.module;
@@ -65,15 +70,14 @@ const App = {
         this.showScreen(entry.screen);
         entry.module.start(this);
 
-        // 🔊 mensaje inicial
-        this.speak("JUANA, VAMOS A JUGAR " + gameName);
+        // 🔊 Rumi presenta el juego
+        this.rumi.speak("¡Juana! Prepárate para jugar a " + gameName + ". ¡Será una gran aventura científica!");
 
         setTimeout(() => { this.isLocked = false; }, 400);
-    },
+    }
 
     goHome() {
         if (this.isLocked) return;
-
         this.isLocked = true;
 
         if (this.currentGame && typeof this.currentGame.stop === 'function') {
@@ -84,7 +88,7 @@ const App = {
         this.showScreen('home-screen');
 
         setTimeout(() => { this.isLocked = false; }, 400);
-    },
+    }
 
     showScreen(screenId) {
         document.querySelectorAll('.screen').forEach(s => {
@@ -97,34 +101,30 @@ const App = {
                 requestAnimationFrame(() => target.classList.add('active'));
             });
         }
-    },
+    }
 
     // ================= MENSAJES =================
-    updateCharacterMessage(msg) {
-        if (!this.elements.characterMsg) return;
+    updateCharacterMessage(gameId, msg) {
+        // Buscamos el contenedor de mensajes específico del juego o el general
+        const msgEl = document.getElementById(`${gameId}-character-msg`) || this.elements.characterMsg;
+        if (!msgEl) return;
 
-        this.elements.characterMsg.style.opacity = 0;
+        msgEl.style.opacity = 0;
 
         setTimeout(() => {
-            this.elements.characterMsg.textContent = msg;
-            this.elements.characterMsg.style.opacity = 1;
-
-            // 🔊 VOZ AUTOMÁTICA
-            this.speak("JUANA, " + msg);
-
+            msgEl.textContent = msg;
+            msgEl.style.opacity = 1;
+            // La voz se maneja desde la lógica del juego para usar celebrate/encourage
         }, 200);
-    },
+    }
 
-    // ================= VOZ =================
+    // ================= VOZ (REDIRECCIONADA A RUMI) =================
     speak(text) {
-        const msg = new SpeechSynthesisUtterance(text);
-        msg.lang = "es-AR";
-        msg.rate = 0.9;
-        msg.pitch = 1.2;
-
-        speechSynthesis.cancel();
-        speechSynthesis.speak(msg);
-    },
+        // Ahora usamos el motor de Rumi que gestiona colas y UI
+        if (this.rumi) {
+            this.rumi.speak(text);
+        }
+    }
 
     // ================= ESTRELLAS =================
     addStar(gamePrefix) {
@@ -138,13 +138,16 @@ const App = {
 
         const totalEl = document.getElementById('total-stars');
         if (totalEl) totalEl.textContent = this.totalStars;
-    },
+
+        // 🎉 Rumi celebra el logro
+        this.rumi.celebrate("¡Impresionante Juana! Has ganado una estrella científica.");
+    }
 
     saveStars() {
         try {
             localStorage.setItem('princess_stars', this.totalStars);
         } catch(e) {}
-    },
+    }
 
     loadStars() {
         try {
@@ -160,4 +163,5 @@ const App = {
 // ================= START =================
 document.addEventListener('DOMContentLoaded', () => App.init());
 
-export default App;
+// Hacemos App global para que los módulos de juegos puedan acceder a ella
+window.app = App;
